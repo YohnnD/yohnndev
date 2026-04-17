@@ -1,11 +1,170 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { cvData } from '../data/cv';
+import SectionTitle from '../components/SectionTitle.astro';
+import ExperienceCard from '../components/ExperienceCard.astro';
+import TagList from '../components/TagList.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const phoneMask = '+58 4XX XXX XXXX';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={cvData.meta.title} description={cvData.meta.description}>
+	<div class="page-bg" aria-hidden="true"></div>
+	<main class="mx-auto max-w-6xl px-6 pb-16 pt-8 text-ink-50 sm:px-8 lg:px-10">
+		<header class="animate-fade-in animate-duration-500 mb-10 rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl sm:p-10">
+			<nav class="mb-10 flex flex-wrap items-center justify-between gap-4">
+				<p class="text-sm tracking-[0.2em] text-muted-400">{cvData.role}</p>
+				<a class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-4 py-2 text-sm font-semibold text-ink-50 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/70 hover:bg-cyan-400/10 hover:shadow-[0_16px_30px_rgba(34,211,238,0.14)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400" href={`mailto:${cvData.contact.email}`}>
+					<Icon name="lucide:mail" class="size-4" aria-hidden="true" />
+					Contactar
+				</a>
+			</nav>
+
+			<div class="grid gap-8 lg:grid-cols-[1.3fr_0.9fr]">
+				<section class="animate-fade-in-up animate-duration-500 space-y-5">
+					<p class="inline-flex items-center gap-2 rounded-full border border-cyan-400/50 bg-cyan-400/10 px-4 py-1.5 text-xs uppercase tracking-[0.08em] text-cyan-400">
+						<Icon name="lucide:sparkles" class="size-3.5" aria-hidden="true" />
+						Disponible
+					</p>
+					<h1 class="font-display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-[-0.02em] text-balance">{cvData.name}</h1>
+					<p class="max-w-2xl text-base leading-relaxed text-muted-400 sm:text-lg">
+						{cvData.summary}
+					</p>
+					<div class="flex flex-wrap gap-3 pt-2">
+						<a class="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent-400 to-cyan-400 px-4 py-2 text-sm font-bold text-bg-950 shadow-[0_10px_24px_rgba(34,211,238,0.28)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(34,211,238,0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400" href={`mailto:${cvData.contact.email}`}>
+							<Icon name="lucide:send" class="size-4" aria-hidden="true" />
+							Hablemos
+						</a>
+						<a class="inline-flex items-center justify-center gap-2 rounded-xl border border-cyan-400/50 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-300 transition duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-400/20 hover:shadow-[0_14px_26px_rgba(34,211,238,0.16)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400" href={cvData.contact.cv} target="_blank" rel="noreferrer" download>
+							<Icon name="lucide:download" class="size-4" aria-hidden="true" />
+							Descargar CV
+						</a>
+						<a class="inline-flex items-center justify-center gap-2 rounded-xl border border-green-400/50 bg-green-400/10 px-4 py-2 text-sm font-semibold text-green-300 transition duration-300 hover:-translate-y-1 hover:border-green-300 hover:bg-green-400/20 hover:shadow-[0_14px_26px_rgba(74,222,128,0.16)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400" href={`https://wa.me/${cvData.contact.whatsapp}`} target="_blank" rel="noreferrer">
+							<Icon name="lucide:message-circle" class="size-4" aria-hidden="true" />
+							WhatsApp
+						</a>
+						<a class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-4 py-2 text-sm font-semibold text-ink-50 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/70 hover:bg-cyan-400/10 hover:shadow-[0_14px_24px_rgba(255,255,255,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400" href={cvData.contact.linkedin} target="_blank" rel="noreferrer">
+							<Icon name="lucide:linkedin" class="size-4" aria-hidden="true" />
+							LinkedIn
+						</a>
+					</div>
+				</section>
+
+				<section class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+					{cvData.stats.map((stat) => (
+						<article class="animate-fade-in animate-duration-500 group rounded-2xl border border-white/15 bg-surface-900/70 p-4 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/60 hover:shadow-[0_16px_32px_rgba(34,211,238,0.12)]">
+							<Icon name={stat.icon} class="mb-2 size-4 text-cyan-400 transition group-hover:scale-110" aria-hidden="true" />
+							<p class="font-display text-2xl font-bold text-ink-50">{stat.value}</p>
+							<p class="mt-1 text-sm text-muted-400">{stat.label}</p>
+						</article>
+					))}
+				</section>
+			</div>
+		</header>
+
+		<section class="grid items-stretch gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+			<section class="animate-fade-in-up animate-duration-500 flex h-full flex-col rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl sm:p-6">
+				<SectionTitle eyebrow="Experiencia" title="Trayectoria profesional"/>
+				<div class="mt-6 space-y-4">
+					{cvData.experience.map((job) => <ExperienceCard job={job} />)}
+				</div>
+			</section>
+
+			<aside class="flex h-full flex-col gap-6">
+				<section class="animate-fade-in animate-duration-500 rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl lg:flex-1">
+					<SectionTitle eyebrow="Stack" title="Tecnologías" />
+					<TagList items={cvData.tools} compact={true} />
+				</section>
+
+				<section class="animate-fade-in animate-duration-500 rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl lg:flex-1">
+					<SectionTitle eyebrow="Fortalezas" title="Habilidades" />
+					<ul class="space-y-3 text-sm text-muted-400">
+						{cvData.skills.map((skill) => (
+							<li class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition duration-300 hover:-translate-y-0.5 hover:border-cyan-400/30 hover:bg-cyan-400/8">{skill}</li>
+						))}
+					</ul>
+				</section>
+
+				<section class="animate-fade-in animate-duration-500 rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl lg:flex-1">
+					<SectionTitle eyebrow="En progreso" title="Aprendiendo ahora" subtitle="Tecnologías que estoy reforzando cada semana." />
+					<ul class="space-y-4">
+						{cvData.learning.map((item) => (
+							<li>
+								<div class="mb-1.5 flex items-center justify-between text-sm">
+									<span class="font-semibold text-white">{item.name}</span>
+									<span class="text-xs text-cyan-300">{item.progress}%</span>
+								</div>
+								<div class="h-2.5 overflow-hidden rounded-full border border-cyan-400/30 bg-surface-900/80">
+									<div
+										class="h-full rounded-full bg-linear-to-r from-accent-400 to-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.35)]"
+										style={`width: ${item.progress}%`}
+									></div>
+								</div>
+							</li>
+						))}
+					</ul>
+				</section>
+			</aside>
+		</section>
+
+		<section class="mt-8 grid gap-6 lg:grid-cols-2">
+			<article class="animate-fade-in-up animate-duration-500 rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl sm:p-8 ">
+				<SectionTitle eyebrow="Educacion" title="Formación académica" />
+				<div class="space-y-2">
+					<p class="font-semibold text-white">{cvData.education.degree}</p>
+					<p class="text-sm text-muted-400">{cvData.education.university}</p>
+					<p class="text-sm text-muted-400">{cvData.education.period}</p>
+				</div>
+			</article>
+
+			<article class="animate-fade-in-up animate-duration-500 rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 shadow-glass backdrop-blur-xl sm:p-8">
+				<SectionTitle eyebrow="Contacto" title="Trabajemos juntos" subtitle="Estoy disponible para aportar experiencia real en frontend, backend e integraciones a tu equipo o proyecto." />
+				<div class="mt-4 space-y-2 text-sm text-muted-400">
+					<p class="flex items-center gap-2"><Icon name="lucide:mail" class="size-4 text-cyan-400" aria-hidden="true" /><strong class="text-white">Email:</strong> {cvData.contact.email}</p>
+					<p class="flex flex-wrap items-center gap-x-2 gap-y-1">
+						<Icon name="lucide:phone" class="size-4 text-cyan-400" aria-hidden="true" />
+						<strong class="text-white">Telefono:</strong>
+						<span id="phone-value" class="tracking-wide">{phoneMask}</span>
+						<button id="reveal-phone-btn" type="button" class="inline-flex items-center gap-1 text-xs font-semibold text-cyan-300 underline decoration-cyan-400/60 underline-offset-3 transition hover:text-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400">
+							<Icon name="lucide:eye" class="size-3.5" aria-hidden="true" />
+							Mostrar
+						</button>
+
+					</p>
+					<p class="flex items-center gap-2"><Icon name="lucide:map-pin" class="size-4 text-cyan-400" aria-hidden="true" /><strong class="text-white">Ubicacion:</strong> {cvData.contact.location}</p>
+				</div>
+				<div class="mt-5 flex flex-wrap gap-3">
+					<a class="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-accent-400 to-cyan-400 px-4 py-2 text-sm font-bold text-bg-950 shadow-[0_10px_24px_rgba(34,211,238,0.28)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_34px_rgba(34,211,238,0.32)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400" href={`mailto:${cvData.contact.email}`}>
+						<Icon name="lucide:mail" class="size-4" aria-hidden="true" />
+						Enviar email
+					</a>
+					<a class="inline-flex items-center justify-center gap-2 rounded-xl border border-green-400/50 bg-green-400/10 px-4 py-2 text-sm font-semibold text-green-300 transition duration-300 hover:-translate-y-1 hover:border-green-300 hover:bg-green-400/20 hover:shadow-[0_14px_26px_rgba(74,222,128,0.16)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-400" href={`https://wa.me/${cvData.contact.whatsapp}`} target="_blank" rel="noreferrer">
+						<Icon name="lucide:message-circle" class="size-4" aria-hidden="true" />
+						WhatsApp
+					</a>
+					<a class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-4 py-2 text-sm font-semibold text-ink-50 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/70 hover:bg-cyan-400/10 hover:shadow-[0_14px_24px_rgba(255,255,255,0.08)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400" href={cvData.contact.github} target="_blank" rel="noreferrer">
+						<Icon name="lucide:github" class="size-4" aria-hidden="true" />
+						GitHub
+					</a>
+				</div>
+			</article>
+		</section>
+	</main>
+
+	<script is:inline>
+		const revealPhoneBtn = document.getElementById('reveal-phone-btn');
+		const phoneValue = document.getElementById('phone-value');
+
+		if (revealPhoneBtn && phoneValue) {
+			revealPhoneBtn.addEventListener('click', () => {
+				const parts = ['+58', '412', '716', '8439'];
+				const display = parts.join(' ');
+				phoneValue.textContent = display;
+				revealPhoneBtn.setAttribute('hidden', '');
+				revealPhoneBtn.classList.add('hidden');
+				revealPhoneBtn.style.display = 'none';
+			});
+		}
+	</script>
 </Layout>

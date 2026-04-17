@@ -1,0 +1,42 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { ExperienceItem } from '../types/ExperienceItem';
+import TagList from './TagList.astro';
+
+interface Props {
+  job: ExperienceItem;
+}
+
+const { job } = Astro.props;
+---
+
+<article class="rounded-3xl border border-white/15 bg-linear-to-b from-white/10 to-white/5 p-6 transition duration-300 hover:-translate-y-1 hover:border-cyan-400/35 hover:shadow-[0_18px_36px_rgba(34,211,238,0.08)]">
+  <div class="mb-4 flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <h3 class="text-xl font-semibold text-white">{job.role}</h3>
+      <p class="flex items-center gap-2 text-sm text-accent-400">
+        <Icon name="lucide:building-2" class="size-4" aria-hidden="true" />
+        {job.company}
+      </p>
+    </div>
+    <p class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs tracking-wide text-muted-400">
+      <Icon name="lucide:calendar" class="size-3.5" aria-hidden="true" />
+      {job.period}
+    </p>
+  </div>
+
+  <p class="mb-4 text-sm leading-relaxed text-muted-400 sm:text-base">{job.description}</p>
+
+  <ul class="mb-4 space-y-2 text-sm text-muted-400">
+    {
+      job.highlights.map((item) => (
+        <li class="flex gap-2">
+          <span class="mt-1 block size-2 shrink-0 rounded-full bg-accent-400" aria-hidden="true"></span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <TagList items={job.stack} />
+</article>
