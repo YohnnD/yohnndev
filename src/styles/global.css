@@ -42,3 +42,15 @@ body {
 	background-size: 52px 52px;
 	mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
 }
+
+@media (max-width: 640px) {
+	body {
+		background-color: #080d1a;
+	}
+
+	.page-bg {
+		position: absolute;
+		mask-image: none;
+		opacity: 0.32;
+	}
+}
